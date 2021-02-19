@@ -75,10 +75,5 @@
 (defn javascript-names [params]
   (remove #(re-find  #"[\d+|\+|\*|\-|\\]" %) (map str (set (flatten params)))))
 
-(javascript '(+ 1 (* x x)))
-(type (javascript-names '(+ 1 (* x y))))
 (defn ->javascript [name params]
   (str "function " name "(" (clojure.string/join ", " (javascript-names params)) ") { return " (javascript params) "; }"))
-
-
-(->javascript "example" '(+ 1 (* x y)))
